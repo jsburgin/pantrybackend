@@ -25,9 +25,32 @@ receipt = {
             request(call, function(err, response, body) {
                 if (err) return reject();
 
-                return resolve(JSON.parse(body));
+                return resolve(process(JSON.parse(body)));
             });
         });
+    },
+    process: function(data) {
+        let values = {
+            upcs: []
+        };
+
+        data.regions.forEach(function(region) {
+            region.lines.forEach(function(line) {
+                processLine(line);
+            });
+        });
+
+        function processLine(line) {
+            line.words.forEach(function(word) {
+                let text = word.text;
+                if (!isNaN(text) && text.length == 9)
+                    values.ids.push(text);
+            });
+        }
+
+        values.size = values.ids.length;
+
+        return values;
     }
 };
 
