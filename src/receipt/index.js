@@ -45,8 +45,10 @@ receipt = {
 
         function processLine(line) {
             line.words.forEach(function(word) {
-                let text = word.text;
-                if (!isNaN(text) && text.length == 9)
+                let text = word.text,
+                    upcLength = config.get('upcLength');
+
+                if (!isNaN(text) && text.length == upclength)
                     values.upcs.push(text);
             });
         }
