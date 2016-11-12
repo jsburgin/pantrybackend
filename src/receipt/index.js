@@ -44,11 +44,11 @@ receipt = {
             line.words.forEach(function(word) {
                 let text = word.text;
                 if (!isNaN(text) && text.length == 9)
-                    values.ids.push(text);
+                    values.upcs.push(text);
             });
         }
 
-        values.size = values.ids.length;
+        values.size = values.upcs.length;
 
         return values;
     }
