@@ -25,7 +25,10 @@ receipt = {
             request(call, function(err, response, body) {
                 if (err) return reject();
 
-                return resolve(receipt.process(JSON.parse(body)));
+                let data = receipt.process(JSON.parse(body));
+                data.url = config.get('url') + id;
+
+                return resolve(data);
             });
         });
     },
