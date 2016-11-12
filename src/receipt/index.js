@@ -48,7 +48,7 @@ receipt = {
                 let text = word.text,
                     upcLength = config.get('upcLength');
 
-                if (!isNaN(text) && text.length == upclength)
+                if (!isNaN(text) && text.length == upcLength)
                     values.upcs.push(text);
             });
         }
