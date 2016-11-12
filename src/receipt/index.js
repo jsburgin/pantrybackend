@@ -25,7 +25,7 @@ receipt = {
             request(call, function(err, response, body) {
                 if (err) return reject();
 
-                return resolve(process(JSON.parse(body)));
+                return resolve(receipt.process(JSON.parse(body)));
             });
         });
     },
