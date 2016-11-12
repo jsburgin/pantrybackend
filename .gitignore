@@ -1,0 +1,6 @@
+node_modules
+static
+.DS_Store
+*.log
+config/development.json
+config/production.json
