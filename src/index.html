@@ -2,10 +2,25 @@
 <html>
     <head>
         <title>Pantry Pal</title>
+        <style type="text/css">
+            body {
+                background: #1CD8D2;
+                background: -webkit-linear-gradient(to left, #1CD8D2 , #93EDC7);
+                background: linear-gradient(to left, #1CD8D2 , #93EDC7);
+            }
+            .upload {
+                background: #fff;
+                width: 97%;
+                max-width: 300px;
+                margin: 50px auto;
+                padding: 15px;
+                border-radius: 6px;
+            }
+        </style>
     </head>
 
     <body>
-        <form method="POST" action="/api/pantry" enctype="multipart/form-data">
+        <form class="upload" method="POST" action="/api/pantry" enctype="multipart/form-data">
             <input type="file" name="receipt" accept="*">
             <input type="submit">
         </form>
