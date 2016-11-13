@@ -15,4 +15,4 @@ app.use(function(req, res, next) {
     return res.status(404).send('404.');
 });
 
-app.listen('3000');
+app.listen(process.env.PORT || '8080');

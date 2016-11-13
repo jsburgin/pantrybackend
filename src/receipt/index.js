@@ -4,6 +4,12 @@ let request = require('request'),
     receipt;
 
 receipt = {
+    /**
+     * analyze
+     * Sends an image to CloudVision OCR
+     * @param  {String} id file name/id
+     * @return {Promise(upcData)}
+     */
     analyze: function(id) {
         let params = {
                 'subscription-key': config.get('vision.key')
@@ -32,29 +38,33 @@ receipt = {
             });
         });
     },
+    /**
+     * process
+     * Extracts upc codes from ocr object
+     * @param  {Object} data CloudVision data
+     * @return {Object}
+     */
     process: function(data) {
-        let values = {
-            upcs: []
-        };
+        let values = { upcs: [] };
 
         data.regions.forEach(function(region) {
             region.lines.forEach(function(line) {
-                processLine(line);
+                addUpcCodes(line);
             });
         });
 
-        function processLine(line) {
+        function addUpcCodes(line) {
             line.words.forEach(function(word) {
                 let text = word.text,
                     upcLength = config.get('upcLength');
 
+                // check if word is valid upc format
                 if (!isNaN(text) && text.length == upcLength)
                     values.upcs.push(text);
             });
         }
 
         values.size = values.upcs.length;
-
         return values;
     }
 };
