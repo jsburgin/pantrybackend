@@ -1,14 +1,12 @@
 'use strict';
-var express    = require('express'),
+let express    = require('express'),
     bodyParser = require('body-parser'),
-    multer     = require('multer'),
     path       = require('path'),
     routes     = require('./routes/index'),
     app        = express();
 
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'static')));
 app.use('/', routes);
 
 app.use(function(req, res, next) {

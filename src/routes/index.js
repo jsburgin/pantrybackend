@@ -15,7 +15,7 @@ let express = require('express'),
  */
 storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, config.get('uploadDir')));
+        cb(null, config.get('uploadDir'));
     }
 });
 
