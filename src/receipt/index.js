@@ -75,10 +75,10 @@ receipt = {
 
         values.size = values.upcs.length;
 
-        values.upcs.forEach(upc) {
+        values.upcs.forEach(function(upc) {
             let item = store.get(upc);
             if (item) values.items.push(item);
-        }
+        });
 
         return values;
     }
