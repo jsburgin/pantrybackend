@@ -4,3 +4,4 @@ static
 *.log
 config/development.json
 config/production.json
+store.json

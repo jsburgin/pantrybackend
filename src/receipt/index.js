@@ -1,7 +1,16 @@
 'use strict';
 let request = require('request'),
     config  = require('config'),
-    receipt;
+    fs      = require('fs'),
+    receipt,
+    store;
+
+store = {
+    data: JSON.parse(fs.readFileSync('./store.json', 'utf8')),
+    get: function(upc) {
+        return store.data[upc];
+    }
+};
 
 receipt = {
     /**
@@ -45,7 +54,7 @@ receipt = {
      * @return {Object}
      */
     process: function(data) {
-        let values = { upcs: [] };
+        let values = { upcs: [], items: [] };
 
         data.regions.forEach(function(region) {
             region.lines.forEach(function(line) {
@@ -56,15 +65,21 @@ receipt = {
         function addUpcCodes(line) {
             line.words.forEach(function(word) {
                 let text = word.text,
-                    upcLength = config.get('upcLength');
+                    upcLengths = config.get('upcLengths');
 
                 // check if word is valid upc format
-                if (!isNaN(text) && text.length == upcLength)
+                if (!isNaN(text) && upcLengths.indexOf(text.length) != -1)
                     values.upcs.push(text);
             });
         }
 
         values.size = values.upcs.length;
+
+        values.upcs.forEach(upc) {
+            let item = store.get(upc);
+            if (item) values.items.push(item);
+        }
+
         return values;
     }
 };
