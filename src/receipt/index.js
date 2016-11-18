@@ -64,22 +64,17 @@ receipt = {
 
         function addUpcCodes(line) {
             line.words.forEach(function(word) {
-                let text = word.text,
-                    upcLengths = config.get('upcLengths');
-
+                let text = word.text;
                 // check if word is valid upc format
-                if (!isNaN(text) && upcLengths.indexOf(text.length) != -1)
+                if (!isNaN(text) && (text.length == 7 || text.length == 12)) {
+                    let item = store.get(text);
                     values.upcs.push(text);
+                    if (item) values.items.push(item);
+                }
             });
         }
 
-        values.size = values.upcs.length;
-
-        values.upcs.forEach(function(upc) {
-            let item = store.get(upc);
-            if (item) values.items.push(item);
-        });
-
+        values.size = values.items.length;
         return values;
     }
 };

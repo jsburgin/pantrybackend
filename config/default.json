@@ -4,6 +4,5 @@
     "vision": {
         "key": "",
         "api": "https://api.projectoxford.ai/vision/v1.0/ocr"
-    },
-    "upcLengths": ""
+    }
 }
