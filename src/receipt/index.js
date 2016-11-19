@@ -93,11 +93,11 @@ receipt = {
             });
         }
 
-        if (value.upcs.length != 0) {
+        if (values.upcs.length != 0) {
             if (values.upcs[0].length == 7) {
                 values.store = 'Target';
             } else {
-                value.store = 'Walmart';
+                values.store = 'Walmart';
             }
         }
 
