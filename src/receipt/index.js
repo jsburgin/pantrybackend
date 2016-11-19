@@ -60,9 +60,9 @@ receipt = {
                 data.url = config.get('url') + id;
 
                 if (!pantry[token]) pantry[token] = [];
-                pantry[token].push(data);
+                pantry[token].unshift(data);
 
-                return resolve(data);
+                return resolve(pantry[token]);
             });
         });
     },
