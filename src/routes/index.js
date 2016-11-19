@@ -77,11 +77,11 @@ router.post('/api/receipt', upload.single('receipt'), function(req, res, next) {
         return res.status(400).send('Please include a valid receipt image.');
     }
 
-    if (!req.body.token) {
+    if (!req.query.token) {
         return res.status(401).send('Please provide valid token.');
     }
 
-    receipt.analyze(req.file.filename, req.body.token)
+    receipt.analyze(req.file.filename, req.query.token)
         .then(function(data) {
             return res.json(data);
         })
