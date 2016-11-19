@@ -2,6 +2,7 @@
 let request = require('request'),
     config  = require('config'),
     fs      = require('fs'),
+    pantry = {},
     receipt,
     store;
 
@@ -14,12 +15,27 @@ store = {
 
 receipt = {
     /**
+     * getPantry
+     * @param  {String} token
+     * @return {Promise(pantry)}
+     */
+    getPantry: function(token) {
+        if (!pantry[token])
+            return Promise.reject({
+                code: 400,
+                message: 'No pantry for that token.'
+            });
+
+        return Promise.resolve(pantry[token]);
+    },
+    /**
      * analyze
      * Sends an image to CloudVision OCR
      * @param  {String} id file name/id
+     * @param  {String} token
      * @return {Promise(upcData)}
      */
-    analyze: function(id) {
+    analyze: function(id, token) {
         let params = {
                 'subscription-key': config.get('vision.key')
             },
@@ -42,6 +58,9 @@ receipt = {
 
                 let data = receipt.process(JSON.parse(body));
                 data.url = config.get('url') + id;
+
+                if (!pantry[token]) pantry[token] = [];
+                pantry[token].push(data);
 
                 return resolve(data);
             });
