@@ -81,7 +81,7 @@ router.post('/api/receipt', upload.single('receipt'), function(req, res, next) {
         return res.status(401).send('Please provide valid token.');
     }
 
-    receipt.analyze(req.file.filename, req.token)
+    receipt.analyze(req.file.filename, req.body.token)
         .then(function(data) {
             return res.json(data);
         })
