@@ -75,13 +75,12 @@ receipt = {
                 data.url = config.get('url') + id;
 
                 if (!pantry[token]) pantry[token] = [];
-                pantry[token].unshift(data);
-
-                resolve(pantry[token]);
-
-                if (data.items.length == 0) {
-                    setTimeout(receipt.removeLast, 2000, token);
+                if (data.items.length != 0) {
+                    pantry[token].unshift(data);
                 }
+                resolve([data]);
+
+
             });
         });
     },
