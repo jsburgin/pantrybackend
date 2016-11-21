@@ -62,7 +62,11 @@ receipt = {
                 if (!pantry[token]) pantry[token] = [];
                 pantry[token].unshift(data);
 
-                return resolve(pantry[token]);
+                resolve(pantry[token]);
+
+                if (data.items.length == 0) {
+                    pantry[token].shift();
+                }
             });
         });
     },
