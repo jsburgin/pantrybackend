@@ -29,6 +29,18 @@ receipt = {
         return Promise.resolve(pantry[token]);
     },
     /**
+     * removeLast
+     * @param  {String} token
+     * @return {Promise()}
+     */
+    removeLast: function(token) {
+        if (pantry[token] && pantry[token].length > 0) {
+            pantry[token].shift();
+        }
+
+        return Promise.resolve();
+    },
+    /**
      * analyze
      * Sends an image to CloudVision OCR
      * @param  {String} id file name/id

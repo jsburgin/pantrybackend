@@ -68,6 +68,22 @@ router.get('/api/pantry', function(req, res, next) {
 });
 
 /**
+ * Route: /api/shift
+ */
+router.get('/api/shift', function(req, res, next) {
+    if (!req.query.token) {
+        return res.status(401).send('Please provide a valid token');
+    }
+
+    receipt.removeLast(req.query.token)
+        .then(function() {
+            return res.json({
+                'done': true
+            });
+        });
+});
+
+/**
  * Route: /api/receipt
  * Receives a receipt image and returns extracted upc codes
  */
