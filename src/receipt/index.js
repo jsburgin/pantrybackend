@@ -28,6 +28,9 @@ receipt = {
 
         return Promise.resolve(pantry[token]);
     },
+    resetPantry: function() {
+        pantry = {};
+    },
     /**
      * removeLast
      * @param  {String} token
@@ -103,8 +106,10 @@ receipt = {
                 // check if word is valid upc format
                 if (!isNaN(text) && (text.length == 7 || text.length == 12)) {
                     let item = store.get(text);
-                    values.upcs.push(text);
-                    if (item) values.items.push(item);
+                    if (item) {
+                        values.upcs.push(text);
+                        values.items.push(item);
+                    }
                 }
             });
         }

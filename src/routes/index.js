@@ -83,6 +83,11 @@ router.get('/api/shift', function(req, res, next) {
         });
 });
 
+router.get('/api/reset', function(req, res, next) {
+    receipt.resetPantry();
+    return res.json({});
+});
+
 /**
  * Route: /api/receipt
  * Receives a receipt image and returns extracted upc codes
