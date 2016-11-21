@@ -77,7 +77,7 @@ receipt = {
                 resolve(pantry[token]);
 
                 if (data.items.length == 0) {
-                    pantry[token].shift();
+                    setTimeout(receipt.removeLast(token), 2000);
                 }
             });
         });
