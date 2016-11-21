@@ -1,7 +1,8 @@
 'use strict';
-let request = require('request'),
-    config  = require('config'),
-    fs      = require('fs'),
+let request    = require('request'),
+    config     = require('config'),
+    dateformat = require('dateformat'),
+    fs         = require('fs'),
     pantry = {},
     receipt,
     store;
@@ -79,8 +80,6 @@ receipt = {
                     pantry[token].unshift(data);
                 }
                 resolve([data]);
-
-
             });
         });
     },
@@ -121,7 +120,7 @@ receipt = {
             }
         }
 
-        values.date = new Date();
+        values.date = dateformat(new Date(), 'mmm d, yyyy');
         values.size = values.items.length;
         return values;
     }
