@@ -92,11 +92,16 @@ receipt = {
     process: function(data) {
         let values = { upcs: [], items: [] };
 
-        data.regions.forEach(function(region) {
-            region.lines.forEach(function(line) {
-                addUpcCodes(line);
+        if (data.regions) {
+            data.regions.forEach(function(region) {
+                region.lines.forEach(function(line) {
+                    addUpcCodes(line);
+                });
             });
-        });
+        } else {
+            values.size = 0;
+            return Promise.resolve(values);
+        }
 
         function addUpcCodes(line) {
             line.words.forEach(function(word) {
